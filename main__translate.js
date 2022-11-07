@@ -1,8 +1,3 @@
-/*******************************************
- * MORSE CODE TRANSLATOR                   *
- * Original Code by JinH (https://jinh.kr) *
- *******************************************/
-
 m.tranlyze.t = {
   lang: {
     count: {
@@ -86,7 +81,7 @@ var hangulToJaso = function(text) {
   );
   var chars = new Array();
   /*var*/
-  v = new Array(); //전역 함수로 만들어 버립시당.  아 나도 빨리 전역하고 싶당 ㅠㅠ
+  v = new Array(); 
   for (var i = 0; i < text.length; i++) {
     chars[i] = text.charCodeAt(i);
     if (chars[i] >= 0xAC00 && chars[i] <= 0xD7A3) {

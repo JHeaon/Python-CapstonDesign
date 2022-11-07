@@ -315,7 +315,7 @@ const m = {
 
     function engine() {
       let dot_type = MORSE_DIT; // dit = 0, dah = 1
-      let isSoundOn = m.type.play.sound; // 시간차로 발생하는 오류 때문에 변수 하나 생성.
+      let isSoundOn = m.type.play.sound; 
       if (m.type.play.isOn) {
         code = text.substring(position, position + 1);
         code0 = text.substring(position, position + dit.length);
