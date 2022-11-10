@@ -10,9 +10,13 @@ from . import translate
 
 class IndexView(APIView):
     
-    # 
+    # 이미지를 구글 tts로 변환하여 전송
     def get(self, request):
         value = translate.PyJsHoisted_analyze_b_(1, "⠣⠒⠉⠻⠚⠠⠝⠬")
+        
+        
+        print()
+        
         tts = gTTS(text=value, long='ko')
         return HttpResponse("Hello world!")
     
@@ -22,4 +26,7 @@ class IndexView(APIView):
         return HttpResponse("Hello world!")
     
     
+    
+
+
 

@@ -19,7 +19,6 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=[permissions.AllowAny],
 )
-
 urlpatterns = [
     path('admin/', admin.site.urls), # url 경로 추가하시면 됩니다. 
     path("", include("main.urls")),
