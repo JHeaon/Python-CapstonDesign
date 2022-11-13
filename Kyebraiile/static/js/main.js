@@ -1,3 +1,5 @@
+// translate.py 에 사용된 javascript 기본소스입니다.
+
 const m = {
     tranlyze: {
     key: {},
