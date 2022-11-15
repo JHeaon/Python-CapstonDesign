@@ -1,32 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
-from rest_framework.views import APIView 
-from django.views import View
-
-from gtts import gTTS
+# from gtts import gTTS
 
 from . import translate
-
-class IndexView(APIView):
-    
-    # 이미지를 구글 tts로 변환하여 전송
-    def get(self, request):
-        value = translate.PyJsHoisted_analyze_b_(1, "⠣⠒⠉⠻⠚⠠⠝⠬")
-        
-        
-        print()
-        
-        tts = gTTS(text=value, long='ko')
-        return HttpResponse("Hello world!")
-    
-    
-    # 이미지를 받아서 모델돌려 데이터 가공
-    def post(self, request):
-        return HttpResponse("Hello world!")
-    
-    
-    
+from .models import BraiilePicture
+from .serializers import BraiilePictureSerializer
 
 
+class BraiileVeiwSet(viewsets.ModelViewSet):
+    queryset = BraiilePicture.objects.all()
+    serializer_class = BraiilePictureSerializer
 
+    @action(detail=False, methods=['POST'])
+    def set_public(self, request, pk):
+        print("hisafddsafasdf")
+        instance = self.get_object()
+        instance.is_public = True
+        instance.save()
+        serializer = self.get_serializer(instance)
+
+        return Response("!?!!")
