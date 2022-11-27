@@ -4,4 +4,4 @@ from django.db import models
 
 
 class BraiilePicture(models.Model):
-    image = models.ImageField(default='media/default_img.jpeg')
+    image = models.ImageField(default='media/default_img.jpeg', null=True)
