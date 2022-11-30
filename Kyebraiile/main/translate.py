@@ -1,6 +1,11 @@
+"""
+https://jinh.kr/ 의 javascript 코드를 리펙토링 한 뒤
+js2py을 이용하여 python 파일로 변환하였습니다.
+"""
+
 __all__ = ['translate']
 
-# Don't look below, you will not understand this Python code :) I don't.
+
 
 from js2py.pyjs import *
 # setting scope
