@@ -5,7 +5,65 @@
     <meta charset="utf-8" />
 
     <title>Capston</title>
+    <script language="javascript">
+      $.ajaxSetup({
+        headers: { "X-CSRFToken": "{{csrf_token}}" },
+      });
+
+      var msg = new SpeechSynthesisUtterance();
+      msg.lang = "ko-KR";
+      function ttsTest() {
+        msg.rate = 1; // 0.1 ~ 10
+        msg.pitch = 1; // 0 ~ 2
+
+        msg.text = "{{answer}}";
+        speechSynthesis.speak(msg);
+      }
+      function setLang(langTxt) {
+        msg.lang = langTxt;
+      }
+    </script>
+    <style>
+      input {
+        {% comment %} background: url(../search-icon.png);
+        background-repeat: no-repeat; {% endcomment %}
+        width: 100px;
+        height: 100px;
+        border: 2;
+      }
+
+      butto {
+        width: 100px;
+        height: 100px;
+        border: 2;
+      }
+    </style>
   </head>
 
-  <body></body>
+  <body>
+    {% for i in full_name %} {% csrf_token %}
+    <img src="{{i.image}}" />
+    {% endfor %} {% if answer %} {% csrf_token %}
+    <p>{{answer}}</p>
+    {% endif %}
+
+    <form
+      action="{% url 'index' %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <input type="file" accept="image/*" capture="camera" name="images" />
+      <input type="submit" value="전송" />
+    </form>
+
+    <form
+      action="http://127.0.0.1:8000/BraiileImg/1/search/"
+      method="get"
+      enctype="multipart/form-data"
+    >
+      <input type="submit" value="번역" />
+      <button onclick="setLang('en-US'); ttsTest();">Click</button>
+    </form>
+  </body>
 </html>
