@@ -59,8 +59,8 @@ MIDDLEWARE = [
 ]
 
 
-##CORS
-CORS_ORIGIN_ALLOW_ALL=True
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 
@@ -72,6 +72,8 @@ CORS_ALLOW_METHODS = (
     'POST',
     'PUT',
 )
+
+CSRF_TRUSTED_ORIGINS = ['https://6f9e-110-70-57-179.jp.ngrok.io']
 
 CORS_ALLOW_HEADERS = (
     'accept',
@@ -91,7 +93,7 @@ ROOT_URLCONF = 'Kyebraiile.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
