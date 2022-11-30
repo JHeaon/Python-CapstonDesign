@@ -1,10 +1,13 @@
 import time
 import urllib.request
 from selenium import webdriver
-from datetime import datetime
 
 
 def play(img):
+    """
+    img : 이미지 주소
+    answer : 해당 이미지를 크롤링해서 나온 점자
+    """
 
     opener = urllib.request.build_opener()
     opener.addheaders = [
