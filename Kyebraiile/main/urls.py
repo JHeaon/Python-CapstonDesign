@@ -1,7 +1,9 @@
 from django.urls import path, include, re_path
 from django.conf import settings
+from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
 
 from . import views
 from .views import *
@@ -11,7 +13,6 @@ from rest_framework import permissions
 
 router = routers.DefaultRouter()
 router.register('BraiileImg', BraiileVeiwSet)
-router.register(r'upload', UploadViewSet, basename="upload")
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -29,17 +30,20 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('index/', views.index_view, name='index'),
+    # path('create/', views.create, name='create'),
     path('BraiileImg/<int:pk>/search/',
-         BraiileVeiwSet.as_view({"post": "search"})),
+         BraiileVeiwSet.as_view({"get": "search"})),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 if settings.DEBUG:
     urlpatterns += [
+
         re_path(r'^swagger(?P<format>\.json|\.yaml)$',
                 schema_view.without_ui(cache_timeout=0), name='schema-json'),
         re_path(r'^swagger/$', schema_view.with_ui('swagger',
                 cache_timeout=0), name='schema-swagger-ui'),
         re_path(r'^redoc/$', schema_view.with_ui('redoc',
                 cache_timeout=0), name='schema-redoc')
-    ]
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
