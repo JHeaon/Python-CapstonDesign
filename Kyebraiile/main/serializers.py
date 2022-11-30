@@ -9,10 +9,3 @@ class BraiilePictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = BraiilePicture
         fields = '__all__'
-
-
-class UploadSerializer(Serializer):
-    file_uploaded = FileField()
-
-    class Meta:
-        fields = ['file_uploaded']
