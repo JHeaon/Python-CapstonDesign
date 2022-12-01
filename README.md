@@ -16,5 +16,5 @@
 
 ### 📖 Reference
 
-⬛ 점자 해석 알고리즘 : https://jinh.kr/braille/
+⬛ 점자 해석 알고리즘 : https://jinh.kr/braille/ <br>
 ⬛ 사진 -> 점자로 변환해주는 모델 : https://angelina-reader.ru/
