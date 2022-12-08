@@ -5,52 +5,52 @@
     <meta charset="utf-8" />
 
     <title>Capston</title>
-    <script language="javascript">
-      $.ajaxSetup({
-        headers: { "X-CSRFToken": "{{csrf_token}}" },
-      });
 
-      var msg = new SpeechSynthesisUtterance();
-      msg.lang = "ko-KR";
-      function ttsTest() {
-        msg.rate = 1; // 0.1 ~ 10
-        msg.pitch = 1; // 0 ~ 2
-
-        msg.text = "{{answer}}";
-        speechSynthesis.speak(msg);
-      }
-      function setLang(langTxt) {
-        msg.lang = langTxt;
-      }
-    </script>
     <style>
       .input-file-button {
-        padding: 6px 25px;
+        padding: 20px 40px;
+        font-size: 30px;
+        margin: 20px;
         background-color: #ff6600;
         border-radius: 4px;
+        border-color: white;
         color: white;
         cursor: pointer;
+      }
+
+      img {
+        width: 500px;
+        height: 500px;
+        object-fit: cover;
       }
     </style>
   </head>
 
   <body style="text-align: center">
+    <div>ㅤ</div>
+    <div>ㅤ</div>
+    <div>ㅤ</div>
     <div>
-      {% for i in full_name %} {% csrf_token %}
-      <img src="{{i.image}}" />
-      {% endfor %} {% if answer %} {% csrf_token %}
-      <p>{{answer}}</p>
+      {% if img %} {% csrf_token %} <img src="/media/{{img}}" /> {% endif %}
+    </div>
+    <div>
+      {% if answer %} {% csrf_token %}
+      <p id="text" value="{{answer}}">{{answer}}</p>
       {% endif %}
     </div>
 
-    <div style="text-align: center">
+    <div>ㅤ</div>
+    <div>ㅤ</div>
+    <div>ㅤ</div>
+
+    <div>
       <form
         action="{% url 'index' %}"
         method="POST"
         enctype="multipart/form-data"
       >
         {% csrf_token %}
-        <label class="input-file-button" for="input-file">업로드</label>
+        <label class="input-file-button" for="input-file">사진</label>
 
         <input
           type="file"
@@ -60,22 +60,86 @@
           name="images"
           style="display: none"
         />
-        <input type="submit" class="input-file-button" value="전송" />
-      </form>
 
+        <label class="input-file-button" for="submit">전송</label>
+
+        <input
+          type="submit"
+          id="submit"
+          class="input-file-button"
+          value="전송"
+          style="display: none"
+        />
+      </form>
+    </div>
+
+    <div>ㅤ</div>
+    <div>ㅤ</div>
+    <div>ㅤ</div>
+
+    <div>
       <form
-        action="http://127.0.0.1:8000/BraiileImg/1/search/"
+        action="{% url 'trans' pk=1 %}"
         method="get"
         enctype="multipart/form-data"
       >
-        <input type="submit" class="input-file-button" value="번역" />
-        <button
+        <label class="input-file-button" for="translate">번역</label>
+
+        <input
+          type="submit"
+          id="translate"
           class="input-file-button"
-          onclick="setLang('en-US'); ttsTest();"
-        >
-          음성
-        </button>
+          value="번역"
+          style="display: none"
+        />
+
+        <label class="input-file-button" for="btn-read">듣기</label>
       </form>
+
+      <button
+        class="input-file-button"
+        id="btn-read"
+        onclick="setLang('ko-KR'); ttsTest();"
+        value="듣기"
+        style="display: none"
+      />
     </div>
+
+    <script>
+      function speak(text, opt_prop) {
+        if (
+          typeof SpeechSynthesisUtterance === "undefined" ||
+          typeof window.speechSynthesis === "undefined"
+        ) {
+          alert("이 브라우저는 음성 합성을 지원하지 않습니다.");
+          return;
+        }
+
+        window.speechSynthesis.cancel(); // 현재 읽고있다면 초기화
+
+        const prop = opt_prop || {};
+
+        const speechMsg = new SpeechSynthesisUtterance();
+        speechMsg.rate = 1; // 속도: 0.1 ~ 10
+        speechMsg.pitch = 1; // 음높이: 0 ~ 2
+        speechMsg.lang = "ko-KR";
+        speechMsg.text = text;
+
+        // SpeechSynthesisUtterance에 저장된 내용을 바탕으로 음성합성 실행
+        window.speechSynthesis.speak(speechMsg);
+      }
+
+      // 이벤트 영역
+      var text = document.getElementById("text").innerText;
+      const btnRead = document.getElementById("btn-read");
+
+      btnRead.addEventListener("click", (e) => {
+        speak(text, {
+          rate: 1,
+          pitch: 1.2,
+          lang: "ko-KR",
+        });
+      });
+    </script>
   </body>
 </html>

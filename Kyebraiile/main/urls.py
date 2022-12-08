@@ -33,7 +33,7 @@ urlpatterns = [
     path('index/', views.index_view, name='index'),
     # path('create/', views.create, name='create'),
     path('BraiileImg/<int:pk>/search/',
-         BraiileVeiwSet.as_view({"get": "search"})),
+         BraiileVeiwSet.as_view({"get": "search"}), name="trans"),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 

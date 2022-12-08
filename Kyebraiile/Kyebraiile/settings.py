@@ -73,7 +73,7 @@ CORS_ALLOW_METHODS = (
     'PUT',
 )
 
-CSRF_TRUSTED_ORIGINS = ['https://6f9e-110-70-57-179.jp.ngrok.io']
+CSRF_TRUSTED_ORIGINS = ['https://269a-110-70-59-65.jp.ngrok.io']
 
 CORS_ALLOW_HEADERS = (
     'accept',
